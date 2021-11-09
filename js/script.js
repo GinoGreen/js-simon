@@ -6,23 +6,24 @@
 const NUMBER_TO_PUSH = 5;
 const randomNumbers = [];
 //30 secondi di attesa
-let timeSeconds = 1;
+let timeSeconds = 30;
 // numeri ricordati
 let strikes = 0;
 //contenitore numberi DOM
 const contentNumbers = document.querySelector('.content_numbers');
+//contenitore Count Down
+const countDownDOM = document.getElementById('countDown');
 //Riempio l'array con numeri random
 pushNumbers();
 
 //stampo i numeri i html
 printNumbers();
 
-console.log('dopo stampa',contentNumbers.innerHTML);
+countDownDOM.innerHTML = `Count Down: ${timeSeconds}`;
 //faccio scorrere 30 sec
-console.log(timeSeconds);
-
 const countDown = setInterval(() => {
    timeSeconds--;
+   printCountDown();
    console.log(timeSeconds);
    
    if (timeSeconds === 0) {
@@ -31,8 +32,9 @@ const countDown = setInterval(() => {
       clearInterval(countDown);
       //azzero il display DOM
       contentNumbers.innerHTML = '';
-      console.log('dopo countdown',contentNumbers.innerHTML);
-
+      //count down finito
+      countDownDOM.innerHTML = `Count Down finito`;
+      
       //leggo e confronto i numeri inseriti dall'utente
       readInputNumbers();
 
@@ -45,7 +47,9 @@ const countDown = setInterval(() => {
 /**********
  * FUNZIONI
 ********* */
-
+/**
+ * funzione che pusha dentro l'array tot numeri random e controlla se ci siano dopponi
+ */
 function pushNumbers() {
       
    while (randomNumbers.length < NUMBER_TO_PUSH) {
@@ -59,7 +63,12 @@ function pushNumbers() {
    }
 }
 
-
+/**
+ * funzione che genera un numero random intero da min a max
+ * @param {Number} min 
+ * @param {Number} max 
+ * @returns 
+ */
 function getRandomNumber(min, max) {
    
    return Math.floor(Math.random() * (max - min + 1) + min);
@@ -74,7 +83,9 @@ function printNumbers() {
    });
 }
 
-
+/**
+ * funzione che legge tot numeri in input con relativi controlli di range
+ */
 function readInputNumbers() {
    //chiedo il numero per 5 volte e lo pusho
    for (let i = 0; i < NUMBER_TO_PUSH; i++) {
@@ -95,7 +106,10 @@ function readInputNumbers() {
    // console.log('userInputNumber',userInputNumber);
 }
 
-
+/**
+ * funzione che controlla se il numero input inserito é incluso nell'array
+ * @param {Number} n 
+ */
 function checkStrike(n) {
    
    if (randomNumbers.includes(n)) {
@@ -105,7 +119,9 @@ function checkStrike(n) {
    }
 }
 
-
+/**
+ * funzione che stampa in DOM il risultato dei numeri indovinati
+ */
 function printResult() {
    //stampe differenti in base al numeri di strikes
    if (!strikes) {
@@ -124,4 +140,12 @@ function printResult() {
          <h1 class="strikes">Hai ricordato ${strikes} numeri</h1>
       `;
    }
+}
+
+/**
+ * funzione che stampa il countdown
+ */
+function printCountDown() {
+   
+   countDownDOM.innerHTML = `Count Down: ${timeSeconds}`;
 }
