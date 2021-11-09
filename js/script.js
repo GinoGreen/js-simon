@@ -27,9 +27,7 @@ const countDown = setInterval(() => {
       readInputNumbers();
 
       //stampo quantitá numeri ricordati
-      document.querySelector('.content_numbers').innerHTML = `
-         <h1 class="strikes">Hai ricordato ${strikes} numeri</h1>
-      `;
+      printResult();
    }
 }, 1000);
 
@@ -96,5 +94,26 @@ function checkStrike(n) {
       
       //incremento i numeri ricordati
       strikes++;
+   }
+}
+
+
+function printResult() {
+   const contentNumbers = document.querySelector('.content_numbers');
+   if (!strikes) {
+
+      contentNumbers.innerHTML = `
+         <h1 class="strikes">Non hai ricordato nessun numero</h1>
+      `;
+   } else if (strikes === randomNumbers.length) {
+      
+      contentNumbers.innerHTML = `
+         <h1 class="strikes">Hai ricordato tutti e ${strikes} i numeri. Congratulazioni!</h1>
+      `;
+   } else {
+      
+      contentNumbers.innerHTML = `
+         <h1 class="strikes">Hai ricordato ${strikes} numeri</h1>
+      `;
    }
 }
