@@ -3,12 +3,13 @@
  * dopo 30 secondi chiedere all'utente 5 numeri
  * se i numeri corrispodono ai numeri random, output "hai indovinato 'TOT' numeri"
  */
- const NUMBER_TO_PUSH = 5;
- const randomNumbers = [];
+const NUMBER_TO_PUSH = 5;
+const randomNumbers = [];
 
-
+//Riempio l'array con numeri random
 pushRandomNumbers();
 
+printNumbers();
 
 /**********
  * FUNZIONI
@@ -33,4 +34,15 @@ function pushRandomNumbers() {
 function getRandomNumber(min, max) {
    
    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+
+function printNumbers() {
+   
+   const contentNumbers = document.querySelector('.content_numbers');
+
+   randomNumbers.forEach(number => {
+      
+      contentNumbers.innerHTML += `<h1>${number}</h1>`;
+   });
 }
