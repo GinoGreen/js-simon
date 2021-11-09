@@ -5,25 +5,35 @@
  */
 const NUMBER_TO_PUSH = 5;
 const randomNumbers = [];
+//30 secondi di attesa
 let timeSeconds = 1;
 // numeri ricordati
 let strikes = 0;
+//contenitore numberi DOM
+const contentNumbers = document.querySelector('.content_numbers');
 //Riempio l'array con numeri random
 pushNumbers();
 
 //stampo i numeri i html
 printNumbers();
 
+console.log('dopo stampa',contentNumbers.innerHTML);
 //faccio scorrere 30 sec
 console.log(timeSeconds);
 
 const countDown = setInterval(() => {
    timeSeconds--;
    console.log(timeSeconds);
+   
    if (timeSeconds === 0) {
 
+      //stoppo il count down
       clearInterval(countDown);
-      
+      //azzero il display DOM
+      contentNumbers.innerHTML = '';
+      console.log('dopo countdown',contentNumbers.innerHTML);
+
+      //leggo e confronto i numeri inseriti dall'utente
       readInputNumbers();
 
       //stampo quantitá numeri ricordati
@@ -57,8 +67,6 @@ function getRandomNumber(min, max) {
 
 
 function printNumbers() {
-   
-   const contentNumbers = document.querySelector('.content_numbers');
 
    randomNumbers.forEach(number => {
       
@@ -99,7 +107,7 @@ function checkStrike(n) {
 
 
 function printResult() {
-   const contentNumbers = document.querySelector('.content_numbers');
+   //stampe differenti in base al numeri di strikes
    if (!strikes) {
 
       contentNumbers.innerHTML = `
@@ -111,7 +119,7 @@ function printResult() {
          <h1 class="strikes">Hai ricordato tutti e ${strikes} i numeri. Congratulazioni!</h1>
       `;
    } else {
-      
+
       contentNumbers.innerHTML = `
          <h1 class="strikes">Hai ricordato ${strikes} numeri</h1>
       `;
